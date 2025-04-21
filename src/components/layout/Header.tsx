@@ -12,10 +12,12 @@ export default function Header() {
         {/* Logo */}
         <div className="relative h-14 w-48">
           <a href="/">
-            <img 
+            <Image 
               src="/images/logo-beto-faro.svg" 
               alt="Logo Senador Beto Faro"
-              className="h-full w-full object-contain"
+              fill
+              className="object-contain"
+              priority
             />
           </a>
         </div>

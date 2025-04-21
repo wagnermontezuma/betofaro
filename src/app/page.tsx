@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { WhatsAppButton } from '../components/ui';
+import Image from 'next/image';
 
 export default function Home() {
   // Número do WhatsApp do Senador Beto Faro (substitua pelo número real)
@@ -16,15 +17,17 @@ export default function Home() {
         {/* Background Image com overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="relative w-full h-full">
-            <img
-              src="/images/hero-background.jpg"
-              alt="Beto Faro no Senado Federal"
-              className="absolute w-full h-[130%] object-cover"
-              style={{ 
-                objectPosition: "center 15%",
-                top: "-15%" 
-              }}
-            />
+            <div className="absolute w-full h-[130%]" style={{ top: "-15%" }}>
+              <Image
+                src="/images/hero-background.jpg"
+                alt="Beto Faro no Senado Federal"
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+                style={{ objectPosition: "center 15%" }}
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10"></div>
           </div>
         </div>
@@ -110,10 +113,12 @@ export default function Home() {
                 </p>
               </div>
               <div className="relative rounded-lg overflow-hidden h-[400px] shadow-xl">
-                <img 
+                <Image 
                   src="/images/beto-faro-biografia-1.jpg" 
                   alt="Beto Faro em suas origens rurais" 
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
@@ -121,10 +126,12 @@ export default function Home() {
             {/* Segunda seção: Trajetória política */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-center">
               <div className="relative rounded-lg overflow-hidden h-[400px] shadow-xl md:order-last">
-                <img 
+                <Image 
                   src="/images/beto-faro-biografia-2.jpg" 
                   alt="Beto Faro em atuação parlamentar" 
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div>
@@ -404,10 +411,11 @@ export default function Home() {
               {/* Notícia 1 */}
               <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1 duration-300">
                 <div className="relative h-48 w-full">
-                  <img
+                  <Image
                     src="/images/noticia-1.jpg"
                     alt="Beto Faro durante sessão no Senado Federal"
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-pt-red text-white text-xs font-bold px-2 py-1 rounded">
                     Senado Federal
@@ -438,10 +446,11 @@ export default function Home() {
               {/* Notícia 2 */}
               <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1 duration-300">
                 <div className="relative h-48 w-full">
-                  <img
+                  <Image
                     src="/images/noticia-2.jpg"
                     alt="Beto Faro em visita a comunidade rural"
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
                     Interior do Pará
@@ -472,10 +481,11 @@ export default function Home() {
               {/* Notícia 3 */}
               <article className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1 duration-300">
                 <div className="relative h-48 w-full">
-                  <img
+                  <Image
                     src="/images/noticia-3.jpg"
                     alt="Beto Faro em audiência pública"
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
                     Audiência Pública
@@ -551,22 +561,22 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   <div className="relative aspect-square">
-                    <img src="/images/insta-1.jpg" alt="Visita ao interior" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-1.jpg" alt="Visita ao interior" fill className="object-cover rounded-md" />
                   </div>
                   <div className="relative aspect-square">
-                    <img src="/images/insta-2.jpg" alt="Sessão no Senado" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-2.jpg" alt="Sessão no Senado" fill className="object-cover rounded-md" />
                   </div>
                   <div className="relative aspect-square">
-                    <img src="/images/insta-3.jpg" alt="Reunião com lideranças" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-3.jpg" alt="Reunião com lideranças" fill className="object-cover rounded-md" />
                   </div>
                   <div className="relative aspect-square">
-                    <img src="/images/insta-4.jpg" alt="Evento comunitário" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-4.jpg" alt="Evento comunitário" fill className="object-cover rounded-md" />
                   </div>
                   <div className="relative aspect-square">
-                    <img src="/images/insta-5.jpg" alt="Visita a escola" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-5.jpg" alt="Visita a escola" fill className="object-cover rounded-md" />
                   </div>
                   <div className="relative aspect-square">
-                    <img src="/images/insta-6.jpg" alt="Debate no Senado" className="object-cover w-full h-full rounded-md" />
+                    <Image src="/images/insta-6.jpg" alt="Debate no Senado" fill className="object-cover rounded-md" />
                   </div>
                 </div>
                 <div className="mt-6 text-center">
@@ -709,10 +719,11 @@ export default function Home() {
                 {/* Foto do senador */}
                 <div className="bg-white p-8 rounded-lg shadow-md text-center">
                   <div className="relative w-48 h-48 rounded-full overflow-hidden mx-auto mb-4">
-                    <img 
+                    <Image 
                       src="/images/beto-faro-informal.jpg" 
                       alt="Senador Beto Faro" 
-                      className="object-cover w-full h-full"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <h3 className="text-2xl font-bold text-pt-dark mb-2">Senador Beto Faro</h3>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -37,11 +38,13 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
             <span className="text-lg md:text-xl">CHAMA NO ZAP DO FARO</span>
             <span className="text-xs md:text-sm text-red-100">{secondaryText}</span>
           </div>
-          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-white transform translate-x-[-8px]">
-            <img 
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-white transform translate-x-[-8px] relative">
+            <Image 
               src="/images/whatsapp-logo.png" 
               alt="WhatsApp"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 48px, 64px"
             />
           </div>
         </div>
@@ -63,11 +66,13 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           <span className="text-xl md:text-2xl">CHAMA NO ZAP DO FARO</span>
           <span className="text-sm md:text-base text-red-100">{secondaryText}</span>
         </div>
-        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white transform translate-x-[-10px]">
-          <img 
+        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white transform translate-x-[-10px] relative">
+          <Image 
             src="/images/whatsapp-logo.png" 
             alt="WhatsApp"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 64px, 80px"
           />
         </div>
       </div>
