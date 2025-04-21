@@ -1,0 +1,54 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+@Files Projeto Técnico Detalhado - Landpage Senador Beto Faro - PT.pdf
+@Docs Guia de UX\_UI e Design\_.pdf, Guia de Boas Práticas SEO\_.pdf, Segurança na Esteira de Desenvolvimento CI\_CD.pdf, Esteira CI\_CD\_ Pesquisa Detalhada\_.pdf
+@Codebase LandingPage-BetoFaro
+@Git https://github.com/wagnermontezuma/betofaro
+
+Cmd+L Atue como um desenvolvedor FullCycle sênior, especialista em Next.js, TypeScript e Tailwind CSS, com sólida experiência em UX/UI, práticas avançadas de SEO e segurança robusta em pipelines CI/CD.
+
+Desenvolva uma landing page moderna e responsiva dedicada ao Senador Beto Faro (PT), aplicando rigorosamente os seguintes requisitos técnicos e práticos:
+
+### Estrutura e Design:
+
+- **Página Inicial (Hero)**: Imagem profissional do senador, título impactante e CTAs claros.
+- **Biografia**: Layout em duas colunas com texto intercalado por imagens significativas da trajetória política do senador.
+- **Projetos e Iniciativas**: Apresente projetos em formato de cards, com descrição sucinta e links detalhados.
+- **Notícias e Atualizações**: Seção em grid/lista com resumos e links para artigos completos.
+- **Contato e Envolvimento**: Formulário simples e direto (nome, e-mail, assunto, mensagem), informações de contato e links para redes sociais.
+- **Rodapé**: Links para Política de Privacidade e créditos do desenvolvimento.
+
+### UX/UI:
+
+- Garanta a conformidade com acessibilidade (WCAG 2.2).
+- Utilize Tailwind CSS para responsividade plena.
+- Adote fontes legíveis e hierarquia tipográfica clara.
+- Implemente animações e transições suaves (GSAP ou Animate.css).
+- Considere a aplicação moderada de efeito parallax em algumas seções.
+
+### SEO Avançado:
+
+- Estruturação com URLs amigáveis e semânticas.
+- Implementação rigorosa de meta titles, meta descriptions e tags alt otimizadas para as palavras-chave estratégicas: "Beto Faro", "Senador Pará", "PT Pará".
+- Otimização para Core Web Vitals (LCP < 2,5s, CLS < 0.1).
+- Imagens otimizadas em formatos modernos (WebP).
+- Linkagem interna clara entre as seções para melhor indexação.
+
+### Segurança e CI/CD:
+
+- Pipeline CI/CD configurado no GitHub Actions:
+  - Varredura automática de vulnerabilidades (SAST, SCA e DAST).
+  - Gerenciamento seguro e criptografado de segredos e variáveis sensíveis.
+  - Testes automatizados funcionais de segurança.
+  - Auditorias regulares e monitoramento contínuo de logs.
+
+### Tecnologias Principais:
+
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS.
+- **Backend (Opcional)**: Node.js ou integração com APIs externas para formulário de contato e envio seguro de e-mails.
+
+Forneça o código documentado de maneira clara, seguindo as boas práticas de commit e versionamento, garantindo fácil manutenção e escalabilidade futura.
+

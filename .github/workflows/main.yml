@@ -1,0 +1,135 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Trabalho de verificação de código e segurança
+  code-quality:
+    name: Code Quality and Security Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Run SAST scan with CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript, typescript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: Security dependency check with Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  # Trabalho de testes
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: code-quality
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  # Trabalho de build e deploy (apenas para a branch main)
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: [code-quality, test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run DAST scan with ZAP
+        uses: zaproxy/action-full-scan@v0.4.0
+        with:
+          target: 'https://staging.betofaro.com.br'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
+      - name: Deploy to production
+        if: success()
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/betofaro
+            git pull
+            npm ci
+            npm run build
+            pm2 restart betofaro
+
+  # Trabalho de notificação
+  notify:
+    name: Notify Team
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy]
+    if: always()
+    steps:
+      - name: Notify success
+        if: ${{ needs.build-and-deploy.result == 'success' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: '#00FF00'
+          SLACK_TITLE: 'Deployment Successful! 🚀'
+          SLACK_MESSAGE: 'O site do Senador Beto Faro foi atualizado com sucesso.'
+
+      - name: Notify failure
+        if: ${{ needs.build-and-deploy.result == 'failure' }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: '#FF0000'
+          SLACK_TITLE: 'Deployment Failed! ❌'
+          SLACK_MESSAGE: 'Falha no deployment do site do Senador Beto Faro. Por favor, verifique os logs.' 
